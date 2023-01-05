@@ -170,7 +170,7 @@ def read_state_dict(checkpoint_file, print_global_state=False, map_location=None
     if extension.lower() == ".safetensors":
         pl_sd = safetensors.torch.load_file(checkpoint_file, device=map_location or shared.weight_load_location)
     else:
-        pl_sd = torch.load(checkpoint_file, map_location=map_location or shared.weight_load_location)
+        pl_sd = torch.load(checkpoint_file, map_location="cuda:0")
 
     if print_global_state and "global_step" in pl_sd:
         print(f"Global Step: {pl_sd['global_step']}")
